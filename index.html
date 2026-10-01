@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Museum Affandi - Wahana Interaktif</title>
+    <link rel="stylesheet" href="shared/main.css" />
+  </head>
+  <body class="page-home">
+    <div class="screen">
+      <div class="topbar">
+        <div class="brand">
+          <div class="mark"></div>
+          <div>
+            <div class="title">Museum Affandi</div>
+            <div class="sub">Wahana Interaktif Layar Sentuh</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="intro-panel" class="intro-panel show">
+        <div class="intro-badge">Museum Affandi Experience</div>
+        <h1>Game seru buat kenal<br />karya dari Maestro</h1>
+        <p>Jelajahi Museum Affandi lewat permainan yang santai, edukatif.</p>
+
+        <div class="hero-actions">
+          <button id="start-adventure" class="btn" type="button">
+            Mulai Petualangan
+          </button>
+        </div>
+
+        <div class="hero-stat-grid">
+          <div class="stat-item">
+            <strong>3</strong>
+            <span>Game seru</span>
+          </div>
+          <div class="stat-item">
+            <strong>100%</strong>
+            <span>Interaktif</span>
+          </div>
+          <div class="stat-item">
+            <strong>Fun</strong>
+            <span>Untuk semua usia</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="game-panel" class="game-panel hidden">
+        <div class="landing-shell">
+          <div class="feature-banner">
+            <span>✨ Karya Affandi</span>
+            <span>🎨 Budaya & Seni</span>
+            <span>🧩 Permainan Seru</span>
+          </div>
+        </div>
+
+        <div class="game-grid">
+          <div
+            class="game-card"
+            onclick="goTo('games/find-the-diff/index.html')"
+          >
+            <div
+              class="thumb"
+              style="
+                background-image: url(&quot;assets/images/lukisan/lukisan1_original.jpeg&quot;);
+              "
+            >
+              <span>5 Lukisan</span>
+            </div>
+            <div class="body">
+              <h3>Cari Perbedaan</h3>
+              <p>
+                Temukan titik perbedaan di antara dua versi lukisan Affandi
+                sebelum waktu habis.
+              </p>
+              <div class="play">Mainkan &rsaquo;</div>
+            </div>
+          </div>
+
+          <div class="game-card" onclick="goTo('games/puzzle/index.html')">
+            <div
+              class="thumb"
+              style="
+                background-image: url(&quot;assets/images/lukisan/lukisan1_puzzle.jpeg&quot;);
+              "
+            >
+              <span>5 Lukisan</span>
+            </div>
+            <div class="body">
+              <h3>Puzzle Lukisan</h3>
+              <p>
+                Susun kembali potongan lukisan Affandi menjadi gambar yang utuh.
+              </p>
+              <div class="play">Mainkan &rsaquo;</div>
+            </div>
+          </div>
+
+          <div class="game-card" onclick="goTo('games/ular-tangga/index.html')">
+            <div
+              class="thumb"
+              style="
+                background-image: url(&quot;assets/images/ui/Affandii1.jpeg&quot;);
+              "
+            >
+              <span>2-4 Pemain</span>
+            </div>
+            <div class="body">
+              <h3>Ular Tangga Museum</h3>
+              <p>
+                Jelajahi arsitektur Museum Affandi lewat papan ular tangga yang
+                seru dan menyenangkan.
+              </p>
+              <div class="play">Mainkan &rsaquo;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="idle-screen">
+      <h2>Sentuh Layar untuk Mulai</h2>
+      <p>Museum Affandi &mdash; Wahana Interaktif</p>
+      <div class="pulse"></div>
+    </div>
+
+    <script src="shared/main.js"></script>
+    <script>
+      initIdleScreen(90000);
+
+      const introPanel = document.getElementById("intro-panel");
+      const gamePanel = document.getElementById("game-panel");
+      const startButton = document.getElementById("start-adventure");
+
+      if (startButton) {
+        startButton.addEventListener("click", () => {
+          introPanel.classList.add("hidden");
+          gamePanel.classList.remove("hidden");
+          setTimeout(() => {
+            gamePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 180);
+        });
+      }
+    </script>
+  </body>
+</html>

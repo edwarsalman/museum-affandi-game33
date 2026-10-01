@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Puzzle Lukisan - Museum Affandi</title>
+    <link rel="stylesheet" href="../../shared/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="page-puzzle">
+    <div class="screen pz-screen">
+      <div class="topbar">
+        <button class="btn ghost" onclick="goHome()">&larr; Menu Utama</button>
+        <div class="pz-hud">
+          <div class="hud-pill">Lukisan <span id="hud-level">1</span>/5</div>
+          <div class="hud-pill">Gerakan <span id="hud-moves">0</span></div>
+          <div class="hud-pill">Waktu <span id="hud-time">00:00</span></div>
+        </div>
+      </div>
+
+      <h2 class="pz-title">Susun Lukisan Affandi</h2>
+
+      <div class="pz-picker" id="pz-picker"></div>
+
+      <div class="pz-layout">
+        <div class="pz-board-wrap">
+          <div class="pz-board" id="pz-board"></div>
+        </div>
+        <div class="pz-side">
+          <p class="pz-hint">Referensi gambar:</p>
+          <img id="pz-preview" class="pz-preview" src="" />
+          <p id="pz-description" class="pz-description"></p>
+          <div class="pz-controls">
+            <label class="pz-diff-label">Tingkat kesulitan</label>
+            <div class="pz-diffs">
+              <button
+                class="btn secondary small"
+                data-n="3"
+                onclick="setDifficulty(3)"
+              >
+                Mudah 3&times;3
+              </button>
+              <button
+                class="btn secondary small"
+                data-n="4"
+                onclick="setDifficulty(4)"
+              >
+                Sedang 4&times;4
+              </button>
+              <button
+                class="btn secondary small"
+                data-n="5"
+                onclick="setDifficulty(5)"
+              >
+                Sulit 5&times;5
+              </button>
+            </div>
+            <button class="btn" onclick="shuffleBoard()">Acak Ulang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-win">
+      <div class="overlay-card">
+        <h2>Selesai!</h2>
+        <p id="win-text">Lukisan berhasil disusun.</p>
+        <div class="row">
+          <button class="btn secondary" onclick="shuffleBoard()">Ulangi</button>
+          <button class="btn" onclick="nextLevel()">
+            Lukisan Berikutnya &rsaquo;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-finish">
+      <div class="overlay-card">
+        <h2>Selamat!</h2>
+        <p>Kamu berhasil menyusun semua 5 lukisan Affandi.</p>
+        <div class="row">
+          <button class="btn" onclick="goHome()">Kembali ke Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../shared/main.js"></script>
+    <script src="puzzle-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

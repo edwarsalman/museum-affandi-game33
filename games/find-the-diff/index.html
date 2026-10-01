@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Cari Perbedaan - Museum Affandi</title>
+    <link rel="stylesheet" href="../../shared/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="page-find-diff">
+    <div class="screen fd-screen">
+      <div class="topbar">
+        <button class="btn ghost" onclick="goHome()">&larr; Menu Utama</button>
+        <div class="fd-hud">
+          <div class="hud-pill">Lukisan <span id="hud-level">1</span>/5</div>
+          <div class="hud-pill">
+            Ditemukan <span id="hud-found">0</span>/<span id="hud-total"
+              >4</span
+            >
+          </div>
+          <div class="hud-pill">Waktu <span id="hud-time">01:30</span></div>
+          <div class="hud-pill">
+            Koordinat <span id="hud-coordinate">-</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="fd-title">Temukan Perbedaannya</h2>
+      <p id="fd-description" class="fd-description"></p>
+
+      <div class="fd-board" id="fd-board">
+        <div class="fd-pane">
+          <div class="fd-img-wrap" id="pane-a"></div>
+        </div>
+        <div class="fd-pane">
+          <div class="fd-img-wrap" id="pane-b"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-win">
+      <div class="overlay-card">
+        <h2>Lukisan Selesai!</h2>
+        <p id="win-text">Kamu menemukan semua perbedaan.</p>
+        <div class="row">
+          <button class="btn secondary" onclick="restartLevel()">Ulangi</button>
+          <button class="btn" onclick="nextLevel()">Lanjut &rsaquo;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-time">
+      <div class="overlay-card">
+        <h2>Waktu Habis</h2>
+        <p>Jangan menyerah, coba lagi!</p>
+        <div class="row">
+          <button class="btn secondary" onclick="goHome()">Menu Utama</button>
+          <button class="btn" onclick="restartLevel()">Coba Lagi</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-finish">
+      <div class="overlay-card">
+        <h2>Selamat!</h2>
+        <p>Kamu berhasil menyelesaikan semua 5 lukisan Affandi.</p>
+        <div class="row">
+          <button class="btn" onclick="goHome()">Kembali ke Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../shared/main.js"></script>
+    <script src="diff-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

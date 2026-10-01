@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alat Bantu: Catat Koordinat Perbedaan</title>
+<style>
+  body {
+    font-family: Georgia, serif;
+    background: #F4ECDA;
+    color: #2A211B;
+    margin: 0 auto;
+    padding: 30px 20px;
+    max-width: 1200px;
+  }
+  
+  h1 { 
+    color: #5C2A22; 
+    font-size: 28px; 
+    margin-bottom: 8px; 
+    text-align: center; 
+  }
+  .sub { 
+    color: #5C6B4E; 
+    margin-bottom: 30px; 
+    text-align: center; 
+    max-width: 800px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    line-height: 1.5;
+  }
+  
+  .layout { 
+    display: flex; 
+    gap: 30px; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: flex-start; 
+  }
+  .left { flex: 1 1 500px; max-width: 650px; }
+  .right { flex: 1 1 350px; max-width: 450px; }
+  
+  .box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(42,33,27,0.15);
+    box-sizing: border-box;
+  }
+  
+  input[type=file] { margin-bottom: 14px; width: 100%; }
+  input[type=number] { width: 70px; padding: 6px; font-size: 14px; }
+  
+  #canvasWrap {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #8C3B2E;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+  canvas { display: block; max-width: 100%; height: auto; cursor: crosshair; }
+  
+  .marker {
+    position: absolute;
+    border: 3px solid #39FF14;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.9);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .marker span {
+    position: absolute;
+    top: -20px; left: 50%;
+    transform: translateX(-50%);
+    background: #2A211B;
+    color: #fff;
+    font-size: 11px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  
+  button {
+    font-family: inherit;
+    background: #8C3B2E;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 10px;
+  }
+  button.secondary { background: #fff; color: #5C2A22; border: 2px solid #8C3B2E; }
+  
+  ul#pointList { list-style: none; padding: 0; margin: 14px 0; }
+  ul#pointList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F4ECDA;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  ul#pointList li button { margin: 0; padding: 4px 10px; font-size: 12px; background: #B5342A; }
+  
+  textarea {
+    width: 100%;
+    height: 220px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  
+  label { font-size: 14px; font-weight: 700; display: block; margin-bottom: 6px; }
+  .row { display: flex; gap: 16px; align-items: center; margin-bottom: 14px; flex-wrap: wrap;}
+</style>
+</head>
+<body>
+
+<h1>Alat Bantu: Catat Koordinat Perbedaan</h1>
+<p class="sub">Untuk game "Cari Perbedaan" — Museum Affandi. Upload gambar versi <b>modified</b> (yang sudah diedit), lalu klik/tap di setiap titik perbedaan. Alat ini akan membuat kode <code>points</code> yang tinggal ditempel ke <code>diff-data.js</code>.</p>
+
+<div class="layout">
+  <div class="left box">
+    <label>1. ID Lukisan (1-5)</label>
+    <div class="row">
+      <input type="number" id="paintingId" value="1" min="1" max="5">
+      <label style="margin:0">Radius klik (px)</label>
+      <input type="number" id="radiusInput" value="40" min="10" max="150">
+    </div>
+
+    <label>2. Upload gambar "modified"</label>
+    <input type="file" id="fileInput" accept="image/*">
+
+    <div id="canvasWrap" style="display:none;">
+      <canvas id="canvas"></canvas>
+      <div id="markers"></div>
+    </div>
+    <p id="hint" style="color:#8C3B2E; font-weight:700; display:none;">
+      Klik/tap di titik-titik yang berbeda dari gambar aslinya. Setiap klik akan menambah 1 titik.
+    </p>
+  </div>
+
+  <div class="right box">
+    <label>3. Daftar titik yang sudah dicatat</label>
+    <ul id="pointList"><li style="color:#999;">Belum ada titik.</li></ul>
+    <button class="secondary" onclick="clearPoints()">Hapus Semua Titik</button>
+
+    <label style="margin-top:20px;">4. Kode siap tempel ke diff-data.js</label>
+    <textarea id="output" readonly placeholder="Kode akan muncul di sini setelah kamu menambahkan titik..."></textarea>
+    <button onclick="copyOutput()">Copy Kode</button>
+    <p id="copiedMsg" style="color:#5C6B4E; font-weight:700; display:none;">Tersalin!</p>
+  </div>
+</div>
+
+<script>
+let points = [];
+let img = new Image();
+let naturalW = 0, naturalH = 0;
+
+const fileInput = document.getElementById('fileInput');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const canvasWrap = document.getElementById('canvasWrap');
+const markersEl = document.getElementById('markers');
+const hint = document.getElementById('hint');
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    img.onload = () => {
+      naturalW = img.naturalWidth;
+      naturalH = img.naturalHeight;
+      canvas.width = naturalW;
+      canvas.height = naturalH;
+      ctx.drawImage(img, 0, 0);
+      canvasWrap.style.display = 'inline-block';
+      hint.style.display = 'block';
+      points = [];
+      renderMarkers();
+      renderOutput();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = naturalW / rect.width;
+  const scaleY = naturalH / rect.height;
+  const x = Math.round((e.clientX - rect.left) * scaleX);
+  const y = Math.round((e.clientY - rect.top) * scaleY);
+  points.push({ x, y });
+  renderMarkers();
+  renderList();
+  renderOutput();
+});
+
+function renderMarkers() {
+  markersEl.innerHTML = '';
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = rect.width / naturalW;
+  const scaleY = rect.height / naturalH;
+  const r = parseInt(document.getElementById('radiusInput').value) || 40;
+
+  points.forEach((p, i) => {
+    const m = document.createElement('div');
+    m.className = 'marker';
+    m.style.left = (p.x * scaleX) + 'px';
+    m.style.top = (p.y * scaleY) + 'px';
+    m.style.width = (r * 2 * scaleX) + 'px';
+    m.style.height = (r * 2 * scaleY) + 'px';
+    m.innerHTML = `<span>${i + 1}</span>`;
+    markersEl.appendChild(m);
+  });
+}
+
+function renderList() {
+  const list = document.getElementById('pointList');
+  if (points.length === 0) {
+    list.innerHTML = '<li style="color:#999;">Belum ada titik.</li>';
+    return;
+  }
+  list.innerHTML = points.map((p, i) => `
+    <li>
+      <span>Titik ${i + 1}: x=${p.x}, y=${p.y}</span>
+      <button onclick="removePoint(${i})">Hapus</button>
+    </li>
+  `).join('');
+}
+
+function removePoint(i) {
+  points.splice(i, 1);
+  renderMarkers();
+  renderList();
+  renderOutput();
+}
+
+function clearPoints() {
+  points = [];
+  renderMarkers();
+  renderList();
+  renderOutput();
+}
+
+function renderOutput() {
+  const id = document.getElementById('paintingId').value || 1;
+  const r = parseInt(document.getElementById('radiusInput').value) || 40;
+  const pointsCode = points.map(p => `      { "x": ${p.x}, "y": ${p.y}, "r": ${r} }`).join(',\n');
+
+  const code = `{
+  "id": ${id},
+  "original": "assets/images/lukisan/lukisan${id}_original.jpg",
+  "modified": "assets/images/lukisan/lukisan${id}_modified.jpg",
+  "width": ${naturalW || 900},
+  "height": ${naturalH || 650},
+  "points": [
+${pointsCode}
+  ]
+}`;
+  document.getElementById('output').value = code;
+}
+
+document.getElementById('paintingId').addEventListener('input', renderOutput);
+document.getElementById('radiusInput').addEventListener('input', () => { renderMarkers(); renderOutput(); });
+window.addEventListener('resize', renderMarkers);
+
+function copyOutput() {
+  const out = document.getElementById('output');
+  out.select();
+  document.execCommand('copy');
+  const msg = document.getElementById('copiedMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 1500);
+}
+</script>
+</body>
+</html>

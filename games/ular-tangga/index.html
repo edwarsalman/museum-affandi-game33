@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Ular Tangga Museum Affandi</title>
+
+    <link rel="stylesheet" href="../../shared/main.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="page-ular">
+
+    <div class="screen ut-screen">
+
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <button class="btn ghost" onclick="goHome()">
+          &larr; Menu Utama
+        </button>
+        <div class="ut-hud" id="ut-hud"></div>
+      </div>
+
+      <!-- TITLE -->
+      <h2 class="ut-title">
+        Ular Tangga Museum Affandi
+      </h2>
+
+      <!-- GAME LAYOUT -->
+      <div class="ut-layout">
+
+        <!-- BOARD -->
+        <div class="ut-board-wrap">
+          <div class="ut-board" id="ut-board"></div>
+        </div>
+
+        <!-- SIDE PANEL -->
+        <div class="ut-side">
+
+          <!-- PLAYERS -->
+          <div class="players" id="players"></div>
+
+          <!-- DICE -->
+          <div class="dice-area">
+            <div class="dice" id="dice">
+              <div class="dice-face" id="dice-face" aria-label="Dadu"></div>
+            </div>
+
+            <button class="btn" id="roll-btn" onclick="rollDice()">
+              Lempar Dadu
+            </button>
+
+            <p class="turn-text" id="turn-text">
+              Giliran Pemain 1
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- WIN OVERLAY -->
+    <div class="overlay" id="overlay-win">
+      <div class="overlay-card">
+        <h2 id="win-title">Pemain Menang!</h2>
+        <p id="win-text"></p>
+        <div class="row">
+          <button class="btn secondary" onclick="resetGame()">Main Lagi</button>
+          <button class="btn" onclick="goHome()">Menu Utama</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- START OVERLAY -->
+    <div class="overlay show" id="overlay-start">
+      <div class="overlay-card">
+        <h2>Ular Tangga Museum</h2>
+        <p>Pilih jumlah pemain untuk mulai bermain.</p>
+        <div class="row">
+          <button class="btn secondary" onclick="startGame(2)">2 Pemain</button>
+          <button class="btn secondary" onclick="startGame(3)">3 Pemain</button>
+          <button class="btn" onclick="startGame(4)">4 Pemain</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="../../shared/main.js"></script>
+    <script src="board-data.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>

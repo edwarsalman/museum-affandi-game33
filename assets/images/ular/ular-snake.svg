@@ -1,0 +1,41 @@
+<svg width="440" height="220" viewBox="0 0 440 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ular">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#7dc283"/>
+      <stop offset="35%" stop-color="#4b9a65"/>
+      <stop offset="64%" stop-color="#2d7549"/>
+      <stop offset="100%" stop-color="#1c5736"/>
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#8dd18f"/>
+      <stop offset="100%" stop-color="#2d7149"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#143b2a" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <g transform="translate(12 18)" filter="url(#softShadow)">
+    <path d="M30 95 C 78 38, 144 22, 210 52 C 260 75, 286 110, 328 106 C 352 104, 367 92, 364 78 C 360 59, 343 52, 323 56 C 292 62, 278 78, 248 95 C 213 114, 176 131, 127 126 C 86 122, 51 111, 30 95 Z"
+      fill="url(#bodyGrad)"/>
+
+    <path d="M220 82 C 260 68, 300 62, 332 70 C 360 77, 382 92, 389 113 C 395 131, 384 148, 367 156 C 347 165, 314 162, 290 148 C 275 140, 261 129, 246 118 C 226 104, 210 92, 220 82 Z"
+      fill="url(#headGrad)"/>
+
+    <path d="M62 92 C 102 68, 146 66, 184 80" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M270 92 C 305 85, 331 88, 350 101" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="10" stroke-linecap="round"/>
+
+    <ellipse cx="356" cy="112" rx="22" ry="14" fill="#2d7549"/>
+    <circle cx="366" cy="108" r="4" fill="#ffffff"/>
+    <circle cx="368" cy="108" r="1.5" fill="#1b1b1b"/>
+
+    <path d="M378 117 L 404 122" stroke="#d14f5a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="M382 117 L 404 126" stroke="#d14f5a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+    <g opacity="0.7">
+      <ellipse cx="122" cy="84" rx="26" ry="16" fill="rgba(255,255,255,0.12)"/>
+      <ellipse cx="198" cy="79" rx="28" ry="15" fill="rgba(255,255,255,0.10)"/>
+      <ellipse cx="283" cy="96" rx="30" ry="16" fill="rgba(255,255,255,0.12)"/>
+    </g>
+  </g>
+</svg>

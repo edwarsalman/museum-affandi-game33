@@ -1,0 +1,542 @@
+/* =========================================================
+   MUSEUM AFFANDI - ULAR TANGGA
+   ENHANCED ARTISTIC & RESPONSIVE STYLE
+   ========================================================= */
+
+:root {
+  --affandi-clay: #2C1A0E;
+  --affandi-terracotta: #9B3737;
+  --affandi-gold: #E8AE21;
+  --affandi-jade: #3A644E;
+  --affandi-gold-light: #F3E5AB;
+  --affandi-canvas: #F5EBE1;
+  --affandi-ink: #1F1914;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(232, 174, 33, 0.3);
+  --shadow-rich: 0 12px 32px rgba(31, 25, 20, 0.18);
+  --shadow-glow: 0 0 20px rgba(232, 174, 33, 0.35);
+}
+
+.ut-screen {
+  padding: clamp(8px, 1.5vw, 24px);
+  justify-content: flex-start;
+
+  background-image: url("../assets/images/arsitektur/museum_bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.ut-hud {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.ut-title {
+  color: var(--affandi-clay);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 800;
+  margin: 0 0 clamp(8px, 1.5vw, 16px);
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ut-layout {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: clamp(12px, 2vw, 32px);
+  align-items: center;
+  justify-content: center;
+}
+
+.ut-board-wrap {
+  position: relative;
+  background: linear-gradient(145deg, #2a1f18 0%, #17110c 100%);
+  border-radius: clamp(12px, 2vw, 24px);
+  padding: clamp(4px, 1vw, 12px);
+  box-shadow: var(--shadow-rich), 0 2px 0 inset rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(232, 174, 33, 0.4);
+  flex-shrink: 0;
+}
+
+.ut-board-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: clamp(16px, 2.3vw, 28px);
+  border: 2px solid rgba(155, 55, 55, 0.3);
+  pointer-events: none;
+}
+
+.ut-board {
+  position: relative;
+  width: min(95vw, 82svh, 880px);
+  height: min(95vw, 82svh, 880px);
+  aspect-ratio: 1 / 1;
+  background: #ccae73 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><rect width="100" height="100" fill="%23000"/></svg>');
+  border-radius: clamp(8px, 1.2vw, 14px);
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(44, 26, 14, 0.8);
+}
+
+.ut-cell {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid rgba(60, 42, 28, 0.3);
+  background-color: #F8EED8;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.ut-cell:hover {
+  filter: brightness(1.08);
+  transform: scale(1.02);
+  z-index: 3;
+}
+
+.ut-cell .cell-num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--affandi-clay);
+  font-family: Georgia, serif;
+  font-size: clamp(3.5px, 0.45vw, 6px);
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.5px 1.5px;
+  border-bottom-right-radius: 2px;
+  border-right: 1px solid rgba(232, 174, 33, 0.4);
+  border-bottom: 1px solid rgba(232, 174, 33, 0.4);
+  pointer-events: none;
+}
+
+.ut-cell .cell-desc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(7px, 0.9vw, 12px) 2px 2px 2px;
+  box-sizing: border-box;
+  color: #FFFDF8;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: clamp(3.5px, 0.52vw, 6.5px);
+  line-height: 1.05;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9);
+  white-space: normal;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.ut-cell.special-cell.cell-photo {
+  background-color: #EBD3A7 !important;
+}
+
+.ut-cell.finish {
+  outline: 3px solid var(--affandi-gold);
+  outline-offset: -3px;
+  box-shadow: inset 0 0 15px rgba(232, 174, 33, 0.6);
+}
+
+.ut-cell.ladder-bottom,
+.ut-cell.ladder-top {
+  box-shadow: inset 0 0 0 2px #2C1A0E, inset 0 0 0 4px var(--affandi-gold);
+}
+
+.ut-cell.snake-top,
+.ut-cell.snake-bottom {
+  box-shadow: inset 0 0 0 2px #2C1A0E, inset 0 0 0 4px #A8D5A2;
+}
+
+.connector-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+}
+
+.connector-rail {
+  stroke: var(--affandi-gold);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.connector-rung {
+  stroke: var(--affandi-terracotta);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.connector-vine-stem {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: var(--affandi-jade);
+}
+
+.token {
+  position: absolute;
+  width: var(--token-size, clamp(18px, 2.2vw, 32px));
+  height: var(--token-size, clamp(18px, 2.2vw, 32px));
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  background-size: cover;
+  background-position: center;
+  z-index: 10;
+  transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1), top 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ut-side {
+  width: min(300px, 25vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vw, 18px);
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+
+.player-row.active {
+  background: #FFFFFF;
+  border-color: var(--affandi-gold);
+  box-shadow: var(--shadow-glow);
+}
+
+.player-dot {
+  width: clamp(32px, 2.8vw, 44px);
+  height: clamp(32px, 2.8vw, 44px);
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.player-pos {
+  margin-left: auto;
+  color: var(--affandi-clay);
+  font-weight: 700;
+  font-size: clamp(10px, 0.9vw, 13px);
+  background: rgba(232, 174, 33, 0.15);
+  padding: 3px 8px;
+  border-radius: 16px;
+}
+
+.dice-area {
+  background: linear-gradient(160deg, #FFFFFF 0%, #F5EBE1 100%);
+  border-radius: 18px;
+  padding: clamp(12px, 1.5vw, 18px);
+  text-align: center;
+  box-shadow: var(--shadow-rich);
+  border: 1px solid var(--glass-border);
+}
+
+.dice {
+  position: relative;
+  width: clamp(70px, 7vw, 100px);
+  height: clamp(70px, 7vw, 100px);
+  margin: 0 auto 10px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #FFFDF8 0%, #F3D382 50%, #C78A2A 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), inset 0 -5px 10px rgba(155, 55, 55, 0.25), 0 8px 18px rgba(44, 26, 14, 0.18);
+  transform-style: preserve-3d;
+}
+
+.dice-face {
+  position: absolute;
+  inset: 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(232, 174, 33, 0.3);
+  z-index: 1;
+}
+
+.dice-dot {
+  position: absolute;
+  width: clamp(8px, 1vw, 12px);
+  height: clamp(8px, 1vw, 12px);
+  border-radius: 50%;
+  background: var(--affandi-terracotta);
+  transform: translate(-50%, -50%);
+}
+
+.turn-text {
+  margin-top: 4px;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(11px, 1vw, 13px);
+  color: var(--affandi-clay);
+}
+
+.dice.rolling {
+  animation: diceFloat 0.22s ease-in-out infinite alternate;
+}
+
+.dice.rolling .dice-face {
+  animation: diceSpin 0.12s linear infinite;
+}
+
+@keyframes diceSpin {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
+
+@keyframes diceFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+@media (min-width: 1600px) {
+  .ut-board {
+    width: min(90vw, 85svh, 1000px);
+    height: min(90vw, 85svh, 1000px);
+  }
+}
+
+@media (max-width: 960px) {
+  .ut-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .ut-board {
+    width: min(92vw, 62svh, 650px);
+    height: min(92vw, 62svh, 650px);
+  }
+  .ut-side {
+    width: min(650px, 92vw);
+  }
+  .players {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .ut-screen {
+    padding: 6px;
+  }
+  .ut-board {
+    width: min(96vw, 60svh, 480px);
+    height: min(96vw, 60svh, 480px);
+  }
+  .ut-cell .cell-num {
+    font-size: 2.8px;
+    padding: 0.2px 1px;
+  }
+  .ut-cell .cell-desc {
+    padding: 6px 1px 1px 1px;
+    font-size: clamp(2.8px, 0.9vw, 4.5px);
+    line-height: 1;
+  }
+  .players {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   KUSTOMISASI KHUSUS PER KOTAK (UBAH SESUAI KEBUTUHAN)
+   ========================================================= */
+
+/* KUSTOMISASI KOTAK 2 */
+.ut-cell.cell-2 .cell-desc {
+  font-family: 'Arial', sans-serif !important;
+  color: #FFD700 !important; /* Warna Kuning Emas */
+  font-weight: bold !important;
+  font-style: normal !important;
+}
+
+/* KUSTOMISASI KOTAK 4 (DINONAKTIFKAN agar seragam dengan kotak lain; hapus tanda komentar untuk mengaktifkan lagi)
+.ut-cell.cell-4 .cell-desc {
+  font-family: 'Courier New', monospace !important;
+  color: #00FFFF !important;
+}
+*/
+
+/* KOTAK 1 (START): tanpa tanda kutip, huruf tebal */
+.ut-cell.cell-1 .cell-desc {
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #FFE6A3;
+}
+
+.ut-cell.cell-1 .cell-desc-text::before,
+.ut-cell.cell-1 .cell-desc-text::after {
+  content: none;
+}
+
+
+/* KETERANGAN DI DALAM KOTAK FOTO (bagian bawah kotak) */
+.ut-cell .cell-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  box-sizing: border-box;
+  padding: 3px 2px 2px 2px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(20, 12, 4, 0.85) 60%);
+  color: #FFFDF8;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(3.5px, 0.52vw, 6.5px);
+  line-height: 1.05;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9);
+  word-break: break-word;
+  pointer-events: none;
+}
+
+@media (max-width: 520px) {
+  .ut-cell .cell-caption {
+    font-size: clamp(2.8px, 0.9vw, 4.5px);
+    padding: 2px 1px 1px 1px;
+  }
+}
+
+
+/* =========================================================
+   TULISAN TEBAL & PAS DI KOTAK
+   Ukuran huruf diatur otomatis oleh fitCellTexts() di script.js
+   ========================================================= */
+
+.ut-cell .cell-desc {
+  padding: 15% 5% 5% 5%;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.ut-cell .cell-desc-text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.ut-cell .cell-caption {
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   WARNA RESMI MUSEUM AFFANDI
+   hijau #3A644E  |  kuning #E8AE21  |  merah #9B3737
+   Warna kotak diisi script.js (getClassicCellColor) dan ditandai
+   lewat atribut data-tone. Kuning memakai teks gelap karena teks
+   putih di atas kuning kontrasnya hanya 2:1 (hijau/merah: 7:1).
+   ========================================================= */
+
+.ut-cell[data-tone="green"],
+.ut-cell[data-tone="red"] {
+  --cell-text: #FFFFFF;
+  --cell-accent: #FFE08A;
+  --num-bg: rgba(31, 25, 20, 0.5);
+}
+
+.ut-cell[data-tone="yellow"] {
+  --cell-text: #2C1A0E;
+  --cell-accent: #2C1A0E;
+  --num-bg: rgba(44, 26, 14, 0.78);
+}
+
+.ut-cell.cell-text {
+  background-image: none;
+}
+
+/* Teks: solid, tanpa miring/kutip, tahun tebal */
+.ut-cell.cell-text .cell-desc {
+  background: none;
+  color: var(--cell-text);
+  font-style: normal;
+  font-weight: 600;
+  padding: 17% 5% 5% 5%;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.ut-cell[data-tone="yellow"].cell-text .cell-desc {
+  text-shadow: none;
+}
+
+.ut-cell.cell-text .cell-desc-text strong {
+  color: var(--cell-accent);
+  font-weight: 900;
+}
+
+.ut-cell.cell-1 .cell-desc {
+  color: #FFE08A;
+}
+
+/* Nomor kotak: lingkaran kecil yang selalu terbaca */
+.ut-cell .cell-num {
+  top: 3%;
+  left: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--cell, 60px) * 0.17);
+  height: calc(var(--cell, 60px) * 0.17);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--num-bg, rgba(31, 25, 20, 0.55));
+  color: #FFFFFF;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: calc(var(--cell, 60px) * 0.11);
+}
+
+/* Keterangan kotak foto: strip solid di bawah gambar */
+.ut-cell .cell-caption {
+
+  text-shadow: none;
+}
+
+/* Rel tangga emas diberi garis tepi tipis agar terlihat di atas kotak kuning */
+.connector-rail {
+  filter: drop-shadow(0 0 1px rgba(44, 26, 14, 0.9));
+}
