@@ -25,6 +25,6 @@ const PUZZLE_DATA = [
   {
     id: 5,
     src: "assets/images/lukisan/lukisan5_puzzle.jpeg",
-    description: "Keterangan lukisan kelima dapat ditulis di sini.",
+    description: "riti.",
   },
 ];
